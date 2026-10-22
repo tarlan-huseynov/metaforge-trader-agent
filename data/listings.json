@@ -407,6 +407,193 @@
       "remoteId": "verified:Selling 1x Extended Barrel II Blueprint Listed today - 08:38",
       "createdAt": "2026-10-22T16:36:45.944Z",
       "updatedAt": "2026-10-22T16:39:13.579Z"
+    },
+    {
+      "id": "11cb420a-1e4e-4ddf-9cbe-3e362c618a8a",
+      "side": "sell",
+      "item": {
+        "name": "Looting Mk. 3 (Safekeeper) Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 3
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:14.153Z",
+      "updatedAt": "2026-10-22T17:49:38.821Z"
+    },
+    {
+      "id": "a5c3f013-1fcc-4909-a4e9-f37b6df1cc7a",
+      "side": "sell",
+      "item": {
+        "name": "Torrente Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:14.262Z",
+      "updatedAt": "2026-10-22T17:49:38.824Z"
+    },
+    {
+      "id": "ee12e623-6ae3-4a56-9f35-3788505f7ccb",
+      "side": "sell",
+      "item": {
+        "name": "Anvil Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.264Z",
+      "updatedAt": "2026-10-22T17:49:38.828Z"
+    },
+    {
+      "id": "1ee302d4-d2f7-41f3-8872-cd73114c53c5",
+      "side": "sell",
+      "item": {
+        "name": "Extended Barrel III Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.367Z",
+      "updatedAt": "2026-10-22T17:49:38.830Z"
+    },
+    {
+      "id": "ed6ed4f1-584f-4eae-b7c9-12b49b9dbdd2",
+      "side": "sell",
+      "item": {
+        "name": "Vertical Grip III Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.465Z",
+      "updatedAt": "2026-10-22T17:49:38.833Z"
+    },
+    {
+      "id": "0f1324f0-3c87-4e57-8d9e-0967845171c6",
+      "side": "sell",
+      "item": {
+        "name": "Snap Hook Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 3
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.574Z",
+      "updatedAt": "2026-10-22T17:49:38.836Z"
+    },
+    {
+      "id": "195bc24f-3a14-4a1d-bc07-375ae97be2b4",
+      "side": "sell",
+      "item": {
+        "name": "Bettina Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.669Z",
+      "updatedAt": "2026-10-22T17:49:38.838Z"
+    },
+    {
+      "id": "c1bb5ef9-0d9c-4aa7-a08d-b369e91b762e",
+      "side": "sell",
+      "item": {
+        "name": "Smoke Grenade Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.788Z",
+      "updatedAt": "2026-10-22T17:49:38.842Z"
+    },
+    {
+      "id": "c31e1683-516d-44c0-afad-b6d1438274cf",
+      "side": "sell",
+      "item": {
+        "name": "Surge Coil Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "approved",
+      "remoteId": null,
+      "createdAt": "2026-10-22T17:49:35.884Z",
+      "updatedAt": "2026-10-22T17:49:38.844Z"
     }
   ]
 }
