@@ -52,6 +52,31 @@ on a hopeful assumption.
 - Do not read cookies, tokens, storage or private endpoints; drive the visible UI.
 - On an ambiguous or timed-out submit: do not retry. Read My Listings first, then report.
 
+## Recreate listings ("refresh", "recreate as they are / with adjustments")
+Marketplace sort favors recent listings, so the operator periodically refreshes their
+whole active set to resurface it. When asked to "recreate" or "refresh" listings:
+
+1. Open My Listings and read the current Active set — item, want-side, note, age. No
+   question needed to start this; it's read-only.
+2. Prefer **Bump** over cancel+recreate whenever bumps are available (resets ~24h,
+   premium gets more/day) — same visibility win, zero risk, no re-verification. Use
+   cancel+recreate only when bumps are exhausted, or the operator asked for adjustments
+   that Edit/Bump can't express (price, quantity, item change).
+3. Present the full current list once, in one message, with a numbered table. Do not
+   ask the operator to choose a strategy (bump vs. cancel/recreate) each time — default
+   to bump-first per rule 2, and only fall to cancel+recreate when bumps are unavailable
+   or adjustments require it.
+4. Still get approval before any cancel or live submit (CLAUDE.md rule #2/#5) — but ask
+   it once, as a single batch: "recreate these N listings identically, approve?" or
+   "recreate with: <adjustments>, approve?" Do not ask per-listing unless the operator's
+   request itself was per-listing, and do not ask clarifying questions the operator has
+   already answered by saying "as they are" (= same item/want/qty/note) or by giving the
+   adjustment inline.
+5. Cancel+recreate sequence per listing: delete -> `npm run add` with the same (or
+   adjusted) spec -> normal draft -> approve -> dry run -> commit -> `apply-result` flow
+   above. Never delete a listing before its replacement draft exists and is approved.
+6. Report at the end which were bumped vs. recreated, with evidence for each recreate.
+
 ## Inventory
 ```bash
 npm run payload:inventory      # paste; poll; one call returns the whole stash
