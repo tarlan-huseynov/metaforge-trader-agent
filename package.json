@@ -1,0 +1,17 @@
+{
+  "name": "metaforge-trading-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "list": "node src/cli.js list",
+    "add": "node src/cli.js add",
+    "approve": "node src/cli.js approve",
+    "submitted": "node src/cli.js submitted",
+    "fail": "node src/cli.js fail",
+    "show": "node src/cli.js show",
+    "cache:find": "node src/cli.js cache-find",
+    "cache:add": "node src/cli.js cache-add"
+  },
+  "engines": { "node": ">=20" }
+}

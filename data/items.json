@@ -1,0 +1,12 @@
+{
+  "_meta": {
+    "purpose": "Local cache of ARC Raiders item names confirmed via MetaForge's live item search/autocomplete. Grows incrementally — only add an entry after it has been seen verbatim in the site's own autocomplete results. Never hand-type an item here from memory/guessing.",
+    "fields": "name = exact string accepted by MetaForge's item search. category = optional freeform hint (blueprint/resource/gear/etc). seenAt = ISO date first confirmed.",
+    "updatedAt": "2026-10-22"
+  },
+  "items": [
+    { "name": "Snap Hook", "category": "gear", "seenAt": "2026-10-22" },
+    { "name": "Snap Hook Blueprint", "category": "blueprint", "seenAt": "2026-10-22" },
+    { "name": "Kinetic Converter", "category": "resource", "seenAt": "2026-10-22" }
+  ]
+}
