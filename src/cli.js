@@ -2,7 +2,7 @@
 import { load, save, find, addDrafts, transition, byStatus, summarize, applyReprice, StoreError } from './lib/store.js';
 import { parseTrade, makeSpec, describe, formTotals, fingerprint, SpecError } from './lib/spec.js';
 import { resolve, cacheItem, filterItems, buildIndex, loadItems } from './lib/items.js';
-import { createJob, editJob, inventoryJob, jobPayload, installPayload, instructions, pollPayload } from './lib/driver.js';
+import { createJob, editJob, inventoryJob, listingsJob, listingsPayload, delistJob, jobPayload, installPayload, instructions, pollPayload, resultPayload } from './lib/driver.js';
 import { audit } from './lib/audit.js';
 
 // npm passes the `--` separator straight through; drop it so positional trade
@@ -207,6 +207,33 @@ const commands = {
 
   'payload:inventory'() { out(jobPayload(inventoryJob())); },
   'payload:poll'() { out(pollPayload()); },
+  'payload:result'() { out(resultPayload()); },
+
+  /** One call that reads every live row (item, price, chats, note) as a projection. */
+  'payload:listings'() { out(listingsPayload()); },
+
+  /**
+   * Cancels live listings in one job. Defaults to --status published, because
+   * that is the only state whose rows are supposed to exist on the site.
+   */
+  'payload:delist'() {
+    const db = load();
+    const rows = flag('id') || flag('ids') || flag('status') ? rowsFor(db) : byStatus(db, 'published');
+    if (!rows.length) die('No listings selected (use --id/--ids/--status; default is status=published)');
+    const notLive = rows.filter((row) => row.status !== 'published');
+    if (notLive.length) die(`Refusing to delist rows that are not published: ${notLive.map((r) => `${r.id.slice(0, 8)}:${r.status}`).join(', ')}`);
+    const job = delistJob(rows, { pauseMs: Number(flag('pause') ?? 400) });
+    if (!has('quiet')) {
+      console.error(instructions(job));
+      console.error('');
+      for (const row of rows) console.error(`  ${row.id.slice(0, 8)}  ${describe(row)}`);
+      console.error('');
+      console.error('In-page passes are provisional: reload My Listings, re-read with `npm run payload:listings`,');
+      console.error('then record the removals with `npm run delist -- --ids <a,b,c> --evidence "<what the reload showed>"`.');
+      console.error('');
+    }
+    out(jobPayload(job));
+  },
 
   /** Reconcile a finished job's results back into the registry. */
   'apply-result'() {
@@ -216,6 +243,11 @@ const commands = {
     for (const result of state.results ?? []) {
       if (!result.id) continue;
       if (result.dryRun) { out(`dry-run ok ${result.id.slice(0, 8)}`); continue; }
+      if (result.delist) {
+        if (result.ok) out(`removed (provisional) ${result.id.slice(0, 8)}  ${result.evidence?.[0] ?? ''}`);
+        else out(`remove FAILED ${result.id.slice(0, 8)}  ${JSON.stringify(result.problems ?? 'row still present')}`);
+        continue;
+      }
       if (result.edit) {
         if (result.ok) out(`edit verified ${result.id.slice(0, 8)}  ${result.evidence?.[0] ?? ''}`);
         else out(`edit FAILED ${result.id.slice(0, 8)}  ${JSON.stringify(result.problems ?? 'no confirmation in page')}`);
@@ -257,6 +289,7 @@ const commands = {
              delist (--id|--ids|--status) --evidence "<what confirmed it's gone>"  (published -> draft)
   items      items:find --query q | items:add --name "Exact Name" [--category c] | items:stats
   browser    payload:install | payload:create [--id|--ids|--status] [--commit] | payload:inventory
+             payload:listings | payload:delist [--id|--ids|--status] | payload:result
              payload:poll | apply-result --json '<job json>'
   edits      payload:edit --ids a,b --want W [--commit] | reprice --id ID --want W
   local      discard --id ID   (draft/needs_review only; never touches the site)

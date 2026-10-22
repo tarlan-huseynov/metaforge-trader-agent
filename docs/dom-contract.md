@@ -58,15 +58,24 @@ only actually gone once `Remove` is clicked and the row disappears from a re-rea
 Listings; the first click (on the row) only opens the confirmation, it does not remove
 anything by itself.
 
+Both steps plus the verification live in the runtime as the `delist` job kind
+(`npm run payload:delist`), so cancelling N listings costs one job and a poll
+rather than three browser calls each.
+
 ```js
-// 1. open the confirm dialog
-[...match.row.querySelectorAll('button')]
-  .find(b => (b.getAttribute('aria-label')||'') === 'Remove listing').click();
-// 2. confirm
-[...document.querySelectorAll('[role="dialog"] button, [role="alertdialog"] button')]
-  .find(b => b.textContent.trim() === 'Remove').click();
-// 3. re-read My Listings to confirm the row count dropped before trusting it's gone
+// 1. open the confirm dialog        2. confirm it        3. wait for the row to go
+remove.click();                       confirm.click();     await waitFor(() => !rowFor(name));
 ```
+
+The confirmation is `role="alertdialog"` on some builds and `role="dialog"` on
+others, so it is looked up through `anyDialog()`, which accepts either.
+
+**An in-page pass is provisional.** Observed 2026-10-23: immediately after four
+successful removals the page re-rendered all nine original rows, with their
+original timestamps, as though nothing had been removed; a hard reload showed the
+removals had in fact persisted. The client state and the server can disagree in
+*either* direction, so a removal is only recorded in the tracker after a reload
+and a fresh `payload:listings` read -- never from the job result alone.
 
 **Creating a duplicate while the original is live hangs.** Verified live on
 2026-10-22: calling `createOne` with a spec identical to a still-published listing
@@ -103,6 +112,36 @@ never cache quantities, re-read at the moment of need.
 - `browser_execute_script` must be an **expression**; a top-level `return` throws
   `return not in function`. An async result is therefore parked on `window.__MF_JOB`
   and read back with a second call.
+- **A `\uXXXX` escape does not survive injection.** It arrives in the page as a
+  literal backslash-u, which silently turns a regex into one that never matches
+  and a `split` into one that never splits -- no error, just empty results.
+  Verified twice: once on an early `.replace(/\u00d7/g,'x')`, and again on
+  2026-10-23 when `[x\u00d7]` and `split('\u00b7')` both read back empty against
+  rows that plainly contained those characters.
+  `src/browser/runtime.js` therefore contains **no non-ASCII character at all**,
+  in code or comments, and a test in `test/driver.test.js` enforces that. Match
+  such characters by class instead: the row's multiplication sign is `[^\s\d]?`
+  and the meta line's middle dot is `\s+[^\s\w:]\s+`.
+
+## Reading My Listings cheaply
+`window.MF.readListings()` is **synchronous** -- it returns from the same call that
+asks, with nothing parked on `window.__MF_JOB`, so one browser call reads the whole
+table (`npm run payload:listings`). Each row projects to:
+
+```json
+{ "side": "selling", "quantity": 1, "item": "Anvil Blueprint",
+  "price": "2x Kinetic Converter", "chats": 0,
+  "listedAt": "Listed yesterday - 09:55 PM", "note": "recreate: set to 200" }
+```
+
+Rows are found by walking up from each `Edit` button to the **largest** ancestor
+still holding exactly one of them. Never read this table with
+`browser_get_elements`: it returns every element's class array, geometry and full
+selector path, which has twice exceeded the tool's output cap on a nine-row page
+(~70,000 characters for what this projection says in ~700).
+
+`note` is operator-supplied page content and is kept in its own field precisely so
+it is never mistaken for part of the listing or for an instruction (CLAUDE.md #10).
 
 ## Measured (live dry runs, 2026-10-22)
 | Job | In-page time | Browser calls |

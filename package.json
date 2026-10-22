@@ -29,7 +29,13 @@
     "payload:poll": "node src/cli.js payload:poll",
     "apply-result": "node src/cli.js apply-result",
     "test": "node --test test/",
-    "bench": "node bench/toolcalls.js"
+    "bench": "node bench/toolcalls.js",
+    "payload:listings": "node src/cli.js payload:listings",
+    "payload:delist": "node src/cli.js payload:delist",
+    "payload:result": "node src/cli.js payload:result",
+    "delist": "node src/cli.js delist"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

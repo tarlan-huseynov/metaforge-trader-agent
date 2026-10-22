@@ -110,7 +110,7 @@
    * but NOT the component's internal count, so a listing saved that way reverts to 1
    * (observed live: a form reading 2 saved as 1x). The buttons are the only thing
    * that moves the real state, so they are clicked ONE at a time with a read-back
-   * after each click — never chained blind, which is what produced 12 instead of 2.
+   * after each click -- never chained blind, which is what produced 12 instead of 2.
    */
   /** The listing's own quantity has unprefixed labels; a wanted item's are "<Item> quantity". */
   const quantityControls = (name) => name
@@ -307,6 +307,109 @@
     return null;
   };
 
+  /** Every My Listings row: the largest ancestor of an Edit button still holding exactly one. */
+  const listingRows = () => {
+    const rows = [];
+    for (const button of buttons(document).filter((b) => /^Edit$/i.test(text(b)))) {
+      let el = button;
+      let row = null;
+      for (let depth = 0; depth < 8 && el; depth += 1, el = el.parentElement) {
+        if ([...el.querySelectorAll('button')].filter((b) => /^Edit$/i.test(text(b))).length > 1) break;
+        row = el;
+      }
+      if (row) rows.push(row);
+    }
+    return rows;
+  };
+
+  /**
+   * "Selling 1x Name". The separator is a multiplication sign, matched as "any
+   * one non-space non-digit" on purpose: a \uXXXX escape does NOT survive
+   * injection through the bridge (see docs/dom-contract.md), so this file must
+   * never spell a non-ASCII character, in a regex or in a string.
+   */
+  const SIDE_LINE = /^(selling|buying)\s+(\d+)\s*[^\s\d]?\s*(.+)$/i;
+
+  /** " - " in the meta line is a middle dot; same no-escapes rule applies. */
+  const META_SEP = /\s+[^\s\w:]\s+/;
+
+  /**
+   * One row projected to the few fields a decision actually needs. Reading the
+   * page this way instead of pulling elements through the bridge is the
+   * difference between ~60 characters per listing and several thousand.
+   */
+  const readListing = (row) => {
+    const paragraphs = [...row.querySelectorAll('p')].map(text).filter(Boolean);
+    const head = paragraphs.find((p) => SIDE_LINE.test(p)) || '';
+    const matched = head.match(SIDE_LINE);
+    const meta = paragraphs.find((p) => /^listed\b/i.test(p)) || '';
+    const parts = meta.split(META_SEP).map((part) => part.trim()).filter(Boolean);
+    const chatButton = [...row.querySelectorAll('button')].find((b) => /\bchats?\b/i.test(text(b)));
+    const price = text(row)
+      .replace(head, '')
+      .replace(meta, '')
+      .replace(/\d+\s+chats?/i, '')
+      .replace(/\b(Edit|Bump|Remove listing|Close)\b/gi, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return {
+      side: matched ? matched[1].toLowerCase() : null,
+      quantity: matched ? Number(matched[2]) : null,
+      item: matched ? matched[3].trim() : head,
+      price,
+      chats: chatButton ? Number((text(chatButton).match(/(\d+)/) || [])[1] ?? 0) : 0,
+      listedAt: parts.slice(0, 2).join(' - '),
+      note: parts.slice(2).join(' - '),
+    };
+  };
+
+  const readListings = () => listingRows().map(readListing);
+
+  /** The remove confirmation is role="alertdialog" on some builds, "dialog" on others. */
+  const anyDialog = () => {
+    const open = [...document.querySelectorAll('[role="dialog"], [role="alertdialog"]')].filter(visible);
+    return open[open.length - 1] || null;
+  };
+
+  /**
+   * Cancelling one live listing. The row's "Remove listing" button only OPENS a
+   * confirmation; nothing is gone until that dialog's "Remove" is clicked and the
+   * row stops matching. Both steps verified live 2026-10-22.
+   *
+   * The row count is reported alongside, because a page that has not reconciled
+   * with the server can still render a removed row: treat an in-page pass as
+   * provisional and re-read after a reload before recording it in the tracker.
+   */
+  const delistOne = async (spec) => {
+    await closeDialog();
+    const name = spec.name ?? spec.item?.name;
+    if (!name) throw new Abort('A delist spec needs a name');
+    const match = rowFor(name);
+    if (!match) throw new Abort(`No live listing row found for "${name}"`);
+    const was = text(match.row).slice(0, 160);
+    const before = listingRows().length;
+    const remove = [...match.row.querySelectorAll('button')]
+      .find((b) => /^remove listing$/i.test(b.getAttribute('aria-label') || ''));
+    if (!remove) throw new Abort(`No "Remove listing" button in the row for "${name}"`);
+    remove.click();
+    const confirm = await waitFor(
+      () => buttonByText(/^Remove$/i, anyDialog()),
+      { what: `the "Remove" confirmation for ${name}` },
+    );
+    confirm.click();
+    await waitFor(() => !rowFor(name), { what: `the row for ${name} to disappear`, timeout: 12000 });
+    const after = listingRows().length;
+    return {
+      id: spec.id,
+      delist: true,
+      ok: after < before,
+      was,
+      rowsBefore: before,
+      rowsAfter: after,
+      evidence: [`removed, ${before} rows -> ${after}: ${was.slice(0, 90)}`],
+    };
+  };
+
   /** Repricing a live listing. Only ever runs for rows the operator named. */
   const editOne = async (spec, commit) => {
     await closeDialog();
@@ -391,7 +494,7 @@
     window.__MF_JOB = state;
     (async () => {
       try {
-        if ((job.kind === 'create' || job.kind === 'edit') && !location.pathname.includes(MY_LISTINGS)) {
+        if (['create', 'edit', 'delist', 'listings'].includes(job.kind) && !location.pathname.includes(MY_LISTINGS)) {
           throw new Abort(`Wrong page: ${location.pathname} (expected ${MY_LISTINGS})`);
         }
         if (job.kind === 'create' || job.kind === 'edit') {
@@ -401,7 +504,15 @@
             if (!result.ok && job.stopOnError !== false) break;
             await sleep(job.pauseMs ?? 400);
           }
-        } else if (job.kind === 'inventory') state.results.push(readInventory());
+        } else if (job.kind === 'delist') {
+          for (const spec of job.specs) {
+            const result = await delistOne(spec);
+            state.results.push(result);
+            if (!result.ok && job.stopOnError !== false) break;
+            await sleep(job.pauseMs ?? 400);
+          }
+        } else if (job.kind === 'listings') state.results.push(...readListings());
+        else if (job.kind === 'inventory') state.results.push(readInventory());
         else if (job.kind === 'readForm') state.results.push(readForm());
         else throw new Abort(`Unknown job kind ${job.kind}`);
       } catch (error) {
@@ -418,8 +529,8 @@
   // Primitives are exported so a later fix can be injected as a small patch
   // instead of re-sending this whole file through the conversation.
   window.MF = {
-    run, readForm, readInventory, verify, closeDialog, setNote, rowFor,
-    helpers: { sleep, text, visible, nativeSet, waitFor, dialog, buttons, buttonByText, clickButton, searchInputs, pickItem, quantityInputFor, setQuantity, stepQuantity, rowsSnapshot, squash, fillListing, editOne, createOne, Abort },
+    run, readForm, readInventory, readListings, verify, closeDialog, setNote, rowFor,
+    helpers: { sleep, text, visible, nativeSet, waitFor, dialog, buttons, buttonByText, clickButton, searchInputs, pickItem, quantityInputFor, setQuantity, stepQuantity, rowsSnapshot, squash, fillListing, editOne, createOne, listingRows, readListing, anyDialog, delistOne, Abort },
   };
   return JSON.stringify({ installed: true, href: location.href });
 })()

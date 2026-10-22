@@ -35,7 +35,10 @@ already answers the question — don't ask it again.
 ## Before touching anything
 
 1. Read My Listings (read-only, no question needed to start this).
-2. Cross-check against the local tracker (`node src/cli.js list --status published
+2. Read it with `npm run payload:listings` (one synchronous call returning
+   `{item, price, chats, note, listedAt}` per row), never with `browser_get_elements`
+   -- that has twice blown the tool's output cap on a nine-row page. Cross-check
+   against the local tracker (`node src/cli.js list --status published
    --json`). Live and local drift — a listing can sell, expire, or get hand-edited
    outside this tool. Don't assume the tracker is current; use whatever is actually
    live as the source of truth for what to recreate, and flag any mismatch you find
@@ -64,3 +67,6 @@ Even though "recreate" is routine, these are still real actions on a live accoun
   JSON file by hand.
 - An ambiguous or failed cancel/recreate on one listing: stop on that one, report it,
   don't retry blind. Keep going on the rest of the batch.
+- A removal that the page says worked is still provisional. Reload and re-read with
+  `payload:listings` before recording it with `delist`; the client and the server have
+  been observed disagreeing in both directions.

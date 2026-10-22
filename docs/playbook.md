@@ -74,22 +74,25 @@ whole active set to resurface it. When asked to "recreate" or "refresh" listings
    request itself was per-listing, and do not ask clarifying questions the operator has
    already answered by saying "as they are" (= same item/want/qty/note) or by giving the
    adjustment inline.
-5. Cancel+recreate sequence, **delist-then-create, not create-then-delist**:
-   1. `npm run add` the same (or adjusted) spec for every in-scope listing -> approve
-      all of them as one batch. The replacement draft must exist and be approved
-      before anything live is touched (never delete before that).
-   2. For each listing: click its `Remove listing` button, confirm the
-      "Remove this listing?" dialog (`Remove`, not `Keep it`), then re-read My
-      Listings to confirm the row is gone. Only then run
-      `node src/cli.js delist --id <id> --evidence "<what confirmed it's gone>"`.
-      **Do not** create the replacement while the original is still live — see
-      `docs/dom-contract.md`'s "Creating a duplicate while the original is live
-      hangs" for why `--allow-duplicate` + remove-after is the wrong order here.
-   3. Once a listing's old row is confirmed gone, dry-run its create (no `--commit`),
-      then commit, then `apply-result`. Batch steps 3 across every listing whose old
-      row is already confirmed gone — one dry-run job and one commit job for the
-      whole batch, not one job per listing. Do this for every listing in scope before
-      moving to the next skip/exception case.
+5. Cancel+recreate, **delist-then-create, never create-then-delist**. Every step is
+   batched across the whole set; none of it is per listing:
+
+   | # | Command | Browser calls |
+   |---|---|---|
+   | 1 | `npm run payload:listings` | 1 (sync, no poll) |
+   | 2 | `npm run add -- "<spec>" --allow-duplicate` xN, then `npm run approve -- --ids a,b,c` | 0 |
+   | 3 | `npm run payload:delist -- --ids a,b,c` | 1 + polls |
+   | 4 | reload My Listings, reinstall, `npm run payload:listings` to confirm | 3 |
+   | 5 | `npm run delist -- --ids a,b,c --evidence "<what the reload showed>"` | 0 |
+   | 6 | `npm run payload:create -- --ids ...` (dry run) | 1 + polls |
+   | 7 | `npm run payload:create -- --ids ... --commit` | 1 + polls |
+   | 8 | `npm run apply-result -- --json '<payload:result output>'` | 0 |
+
+   The replacement drafts must exist and be approved (step 2) before anything live is
+   touched in step 3. **Do not** create a replacement while its original is still live
+   -- see `docs/dom-contract.md`'s "Creating a duplicate while the original is live
+   hangs". Step 4 is not optional: an in-page removal pass is provisional, and step 5
+   is what makes the tracker agree with the site.
 6. Report at the end which were bumped vs. recreated, with evidence for each recreate.
 7. Skip any listing with an open negotiation or lock-in in progress (check Messages/chat
    count **freshly read at the moment of acting**, not just the chat count read at the
@@ -99,13 +102,24 @@ whole active set to resurface it. When asked to "recreate" or "refresh" listings
    waiting on it; flag the skipped one(s) and why. Don't cancel a listing someone is
    actively mid-deal on without the operator handling that chat first.
 
-### Polling `window.__MF_JOB`
+### Reading results, and polling
 
-Don't fix a single long `sleep` before the first poll. Poll on a short interval (2–3s)
-and stop as soon as `done:true` — most dry runs finish in 2–4s per listing, so a short
-loop resolves faster on average than a long fixed wait, without adding calls. Reserve
-a longer wait only for a batch job covering several listings at once.
+Read a finished job with `npm run payload:result`, never `JSON.stringify(window.__MF_JOB)`.
+The raw job carries a 500-character `bodyText` per result that nothing downstream reads;
+the projection keeps only what `apply-result` consumes and is what you paste straight
+back into it.
 
+Don't fix a single long `sleep` before the first poll. Listings take ~4s each, so check
+at roughly `4s x N`, then every 2s until `done:true`. A standalone long sleep is both
+slower on average and refused by the harness.
+
+### Don't reinstall the runtime you already have
+
+Every job payload answers `{"needsInstall": true}` when the runtime is gone. Send the
+job first and reinstall only on that answer -- `npm run payload:install` is ~530 lines,
+and re-sending it "just in case" is the single most expensive thing you can do. The
+runtime survives until the page reloads, so keep reloads deliberate (step 4 above is
+the one reload a recreate run needs).
 ## Inventory
 ```bash
 npm run payload:inventory      # paste; poll; one call returns the whole stash
