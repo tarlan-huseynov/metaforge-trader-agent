@@ -10,5 +10,113 @@
     "remoteId": "my-listings-snap-hook-blueprint-2026-10-22-1553",
     "createdAt": "2026-10-22T11:30:48.338Z",
     "updatedAt": "2026-10-22T11:55:25.584Z"
+  },
+  {
+    "id": "56f7b99b-e83a-4b9f-b8d3-844f625d9365",
+    "item": "Anvil Blueprint",
+    "quantity": 1,
+    "offer": "1 Anvil Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:10.976Z",
+    "updatedAt": "2026-10-22T12:53:17.641Z"
+  },
+  {
+    "id": "f509e7f5-9ec3-4eb4-83c3-8f8c8cc8368e",
+    "item": "Barricade Kit Blueprint",
+    "quantity": 1,
+    "offer": "1 Barricade Kit Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.113Z",
+    "updatedAt": "2026-10-22T12:53:17.773Z"
+  },
+  {
+    "id": "6e216a27-975b-4aac-8f06-305d1d397221",
+    "item": "Bettina Blueprint",
+    "quantity": 1,
+    "offer": "1 Bettina Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.236Z",
+    "updatedAt": "2026-10-22T12:53:17.908Z"
+  },
+  {
+    "id": "aac8a112-41c8-4edd-b7b5-f1ac3d5461c6",
+    "item": "Extended Barrel II Blueprint",
+    "quantity": 1,
+    "offer": "1 Extended Barrel II Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.392Z",
+    "updatedAt": "2026-10-22T12:53:18.045Z"
+  },
+  {
+    "id": "bba0140b-6e84-49b1-86d7-abd1358b203a",
+    "item": "Extended Barrel III Blueprint",
+    "quantity": 1,
+    "offer": "1 Extended Barrel III Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.532Z",
+    "updatedAt": "2026-10-22T12:53:18.183Z"
+  },
+  {
+    "id": "15438754-64b8-4cf4-a90a-11e0206c336c",
+    "item": "Extended Light Mag III Blueprint",
+    "quantity": 1,
+    "offer": "1 Extended Light Mag III Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.664Z",
+    "updatedAt": "2026-10-22T12:53:18.321Z"
+  },
+  {
+    "id": "795bd6c9-8d66-4951-9aad-2b9660df7372",
+    "item": "Smoke Grenade Blueprint",
+    "quantity": 1,
+    "offer": "1 Smoke Grenade Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.799Z",
+    "updatedAt": "2026-10-22T12:53:18.473Z"
+  },
+  {
+    "id": "b82995df-dc3f-4959-8cd5-90be6dde6f0a",
+    "item": "Surge Coil Blueprint",
+    "quantity": 1,
+    "offer": "1 Surge Coil Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:11.946Z",
+    "updatedAt": "2026-10-22T12:53:18.631Z"
+  },
+  {
+    "id": "bd81e280-d10d-4620-99f6-5b871c0ec3af",
+    "item": "Vertical Grip III Blueprint",
+    "quantity": 1,
+    "offer": "1 Vertical Grip III Blueprint",
+    "want": "2 Kinetic Converter",
+    "notes": "1 bp for 2 kinetics",
+    "status": "approved",
+    "remoteId": null,
+    "createdAt": "2026-10-22T12:53:12.076Z",
+    "updatedAt": "2026-10-22T12:53:18.781Z"
   }
 ]
