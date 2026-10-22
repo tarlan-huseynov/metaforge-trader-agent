@@ -19,10 +19,10 @@
       },
       "perUnit": true,
       "note": "1 bp for 2 kinetics",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Anvil Blueprint Listed today - 08:38 PM - 1 bp fo",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T12:53:10.976Z",
-      "updatedAt": "2026-10-22T16:39:13.495Z",
+      "updatedAt": "2026-10-22T17:55:07.650Z",
       "legacy": {
         "offer": "1 Anvil Blueprint",
         "want": "2 Kinetic Converter"
@@ -262,10 +262,10 @@
       },
       "perUnit": true,
       "note": "bp for 400 seeds",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Extended Barrel III Blueprint Listed today - 08:3",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T16:39:13.506Z"
+      "updatedAt": "2026-10-22T18:08:47.796Z"
     },
     {
       "id": "967e6ef1-252f-41bf-9d00-adaac626120d",
@@ -308,10 +308,10 @@
       },
       "perUnit": true,
       "note": "bp for 400 seeds",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Vertical Grip III Blueprint Listed today - 08:38",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T16:39:13.517Z"
+      "updatedAt": "2026-10-22T17:58:49.220Z"
     },
     {
       "id": "f830e0ff-619c-4b51-ab6b-1dd3c8c29fac",
@@ -331,10 +331,10 @@
       },
       "perUnit": true,
       "note": "recreate: live price was 3x kinetics",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Snap Hook Blueprint Listed today - 08:38 PM - rec",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T16:36:45.606Z",
-      "updatedAt": "2026-10-22T16:39:13.528Z"
+      "updatedAt": "2026-10-22T17:59:41.150Z"
     },
     {
       "id": "e85f3c0a-5d86-4905-adad-6fdd0a16b6c3",
@@ -349,10 +349,10 @@
       },
       "perUnit": true,
       "note": "recreate: lowered 400->300",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Bettina Blueprint Listed today - 08:38 PM - recre",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T16:36:45.692Z",
-      "updatedAt": "2026-10-22T16:39:13.540Z"
+      "updatedAt": "2026-10-22T18:01:45.088Z"
     },
     {
       "id": "a996e628-a4c4-4e70-b6d8-2f34f7a5fa8a",
@@ -367,10 +367,10 @@
       },
       "perUnit": true,
       "note": "recreate: lowered 400->300",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Smoke Grenade Blueprint Listed today - 08:38 PM -",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T16:36:45.780Z",
-      "updatedAt": "2026-10-22T16:39:13.553Z"
+      "updatedAt": "2026-10-22T18:02:46.489Z"
     },
     {
       "id": "fbb35641-f596-4881-938c-51ffd376dd04",
@@ -385,10 +385,10 @@
       },
       "perUnit": true,
       "note": "recreate: live price was 300 (tracker had stale 400)",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Surge Coil Blueprint Listed today - 08:38 PM - re",
+      "status": "draft",
+      "remoteId": null,
       "createdAt": "2026-10-22T16:36:45.863Z",
-      "updatedAt": "2026-10-22T16:39:13.565Z"
+      "updatedAt": "2026-10-22T18:07:51.948Z"
     },
     {
       "id": "39e30aad-5d4f-405a-90f8-e08ab5049c2e",
@@ -426,10 +426,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Looting Mk. 3 (Safekeeper) Blueprint Listed today",
       "createdAt": "2026-10-22T17:49:14.153Z",
-      "updatedAt": "2026-10-22T17:49:38.821Z"
+      "updatedAt": "2026-10-22T17:52:22.701Z"
     },
     {
       "id": "a5c3f013-1fcc-4909-a4e9-f37b6df1cc7a",
@@ -444,10 +444,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Torrente Blueprint Listed today - 09:51 PM 300 Se",
       "createdAt": "2026-10-22T17:49:14.262Z",
-      "updatedAt": "2026-10-22T17:49:38.824Z"
+      "updatedAt": "2026-10-22T17:52:22.713Z"
     },
     {
       "id": "ee12e623-6ae3-4a56-9f35-3788505f7ccb",
@@ -467,10 +467,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Anvil Blueprint Listed today - 09:55 PM 2x Kineti",
       "createdAt": "2026-10-22T17:49:35.264Z",
-      "updatedAt": "2026-10-22T17:49:38.828Z"
+      "updatedAt": "2026-10-22T17:55:44.436Z"
     },
     {
       "id": "1ee302d4-d2f7-41f3-8872-cd73114c53c5",
@@ -513,10 +513,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Vertical Grip III Blueprint Listed today - 09:59",
       "createdAt": "2026-10-22T17:49:35.465Z",
-      "updatedAt": "2026-10-22T17:49:38.833Z"
+      "updatedAt": "2026-10-22T17:59:25.171Z"
     },
     {
       "id": "0f1324f0-3c87-4e57-8d9e-0967845171c6",
@@ -536,10 +536,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Snap Hook Blueprint Listed today 0 chats Edit Bum",
       "createdAt": "2026-10-22T17:49:35.574Z",
-      "updatedAt": "2026-10-22T17:49:38.836Z"
+      "updatedAt": "2026-10-22T18:00:34.250Z"
     },
     {
       "id": "195bc24f-3a14-4a1d-bc07-375ae97be2b4",
@@ -554,10 +554,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Bettina Blueprint Listed today - 10:02 PM 300 See",
       "createdAt": "2026-10-22T17:49:35.669Z",
-      "updatedAt": "2026-10-22T17:49:38.838Z"
+      "updatedAt": "2026-10-22T18:02:21.227Z"
     },
     {
       "id": "c1bb5ef9-0d9c-4aa7-a08d-b369e91b762e",
@@ -572,10 +572,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Smoke Grenade Blueprint Listed today - 10:08 PM 3",
       "createdAt": "2026-10-22T17:49:35.788Z",
-      "updatedAt": "2026-10-22T17:49:38.842Z"
+      "updatedAt": "2026-10-22T18:08:32.517Z"
     },
     {
       "id": "c31e1683-516d-44c0-afad-b6d1438274cf",
@@ -590,10 +590,10 @@
       },
       "perUnit": true,
       "note": "",
-      "status": "approved",
-      "remoteId": null,
+      "status": "published",
+      "remoteId": "verified:Selling 1x Surge Coil Blueprint Listed today - 10:08 PM 300",
       "createdAt": "2026-10-22T17:49:35.884Z",
-      "updatedAt": "2026-10-22T17:49:38.844Z"
+      "updatedAt": "2026-10-22T18:08:32.529Z"
     }
   ]
 }

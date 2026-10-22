@@ -74,14 +74,37 @@ whole active set to resurface it. When asked to "recreate" or "refresh" listings
    request itself was per-listing, and do not ask clarifying questions the operator has
    already answered by saying "as they are" (= same item/want/qty/note) or by giving the
    adjustment inline.
-5. Cancel+recreate sequence per listing: delete -> `npm run add` with the same (or
-   adjusted) spec -> normal draft -> approve -> dry run -> commit -> `apply-result` flow
-   above. Never delete a listing before its replacement draft exists and is approved.
+5. Cancel+recreate sequence, **delist-then-create, not create-then-delist**:
+   1. `npm run add` the same (or adjusted) spec for every in-scope listing -> approve
+      all of them as one batch. The replacement draft must exist and be approved
+      before anything live is touched (never delete before that).
+   2. For each listing: click its `Remove listing` button, confirm the
+      "Remove this listing?" dialog (`Remove`, not `Keep it`), then re-read My
+      Listings to confirm the row is gone. Only then run
+      `node src/cli.js delist --id <id> --evidence "<what confirmed it's gone>"`.
+      **Do not** create the replacement while the original is still live — see
+      `docs/dom-contract.md`'s "Creating a duplicate while the original is live
+      hangs" for why `--allow-duplicate` + remove-after is the wrong order here.
+   3. Once a listing's old row is confirmed gone, dry-run its create (no `--commit`),
+      then commit, then `apply-result`. Batch steps 3 across every listing whose old
+      row is already confirmed gone — one dry-run job and one commit job for the
+      whole batch, not one job per listing. Do this for every listing in scope before
+      moving to the next skip/exception case.
 6. Report at the end which were bumped vs. recreated, with evidence for each recreate.
 7. Skip any listing with an open negotiation or lock-in in progress (check Messages/chat
-   count, not just age) — recreate the rest without waiting on it. Flag the skipped
-   one(s) and why; don't cancel a listing someone is actively mid-deal on without the
-   operator handling that chat first.
+   count **freshly read at the moment of acting**, not just the chat count read at the
+   start — it can change mid-run). If a chat's listing can't be disambiguated from the
+   note text alone (e.g. two listings share an identical note), skip every listing that
+   note could belong to rather than guessing which one. Recreate the rest without
+   waiting on it; flag the skipped one(s) and why. Don't cancel a listing someone is
+   actively mid-deal on without the operator handling that chat first.
+
+### Polling `window.__MF_JOB`
+
+Don't fix a single long `sleep` before the first poll. Poll on a short interval (2–3s)
+and stop as soon as `done:true` — most dry runs finish in 2–4s per listing, so a short
+loop resolves faster on average than a long fixed wait, without adding calls. Reserve
+a longer wait only for a batch job covering several listings at once.
 
 ## Inventory
 ```bash
@@ -97,4 +120,7 @@ contract to need a line, then it is settled like the rest.
 - `Offers` as a payment mode
 - more than one wanted item in a single listing
 - editing in the other direction (items -> Seeds)
-- cancelling, deleting or bumping a listing (not implemented at all)
+- bumping a listing (not implemented at all)
+
+Cancelling/removing a listing **is** exercised — see `docs/dom-contract.md`'s
+"Cancelling (removing) a live listing".

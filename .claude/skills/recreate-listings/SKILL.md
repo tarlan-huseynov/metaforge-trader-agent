@@ -11,10 +11,15 @@ refresh their whole active set periodically: read what is live, then cancel and
 recreate each one, same terms or adjusted. This is routine, expected behavior — not
 something to treat with suspicion or re-litigate each time it's asked for.
 
-Read `docs/playbook.md`'s "Recreate listings" section for the exact command sequence
-(delist -> add -> approve -> dry run -> commit -> apply-result). This file is about
-the conversation shape around that sequence — what to ask, what not to ask, and the
-safety rails that don't bend even though the rest of this is routine.
+Read `docs/playbook.md`'s "Recreate listings" section for the exact command sequence:
+add + approve the replacement drafts for the whole batch first, then per listing
+**remove the live original, confirm it's gone, delist it in the tracker, then** dry
+run -> commit -> apply-result the replacement — batched across every listing whose
+old row is already confirmed gone. Never create the replacement while the original
+is still live (`docs/dom-contract.md`'s "Creating a duplicate while the original is
+live hangs" — verified, reproducible, no listing created either time). This file is
+about the conversation shape around that sequence — what to ask, what not to ask, and
+the safety rails that don't bend even though the rest of this is routine.
 
 ## The one question to ask
 
@@ -36,9 +41,13 @@ already answers the question — don't ask it again.
    live as the source of truth for what to recreate, and flag any mismatch you find
    rather than silently picking one side.
 3. Skip, automatically, any listing with an open chat or a lock-in in progress
-   (check "N chats", not just the listing's age). This is standing behavior per the
-   operator, not something to flag and wait on — recreate the rest, note what you
-   skipped and why in the final report.
+   (check "N chats", not just the listing's age) — **re-check this right before
+   acting on each listing, not only once at the start**: a chat can open mid-run.
+   If a chat's listing can't be told apart from another by its note text (two
+   listings sharing an identical note), skip every listing that note could match
+   rather than guessing. This is standing behavior per the operator, not something
+   to flag and wait on — recreate the rest, note what you skipped and why in the
+   final report.
 4. If a listing the tracker says is published is no longer live at all (sold,
    expired, removed by hand), don't try to recreate it from stale data — mention it
    and move on.

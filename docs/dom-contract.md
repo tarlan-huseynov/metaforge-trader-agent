@@ -49,6 +49,39 @@ The edit dialog (My Listings -> Edit) skips straight to the form and submits wit
 Fields appear progressively: screen 3 starts with only the item search; quantity and
 the wanted-items list render after an item is chosen.
 
+## Cancelling (removing) a live listing
+
+Each My Listings row has a `button[aria-label="Remove listing"]`. Clicking it opens a
+confirm dialog — `role="dialog"` or `role="alertdialog"`, heading "Remove this listing?",
+with two buttons: `Keep it` and `Remove` (destructive, `bg-destructive`). The listing is
+only actually gone once `Remove` is clicked and the row disappears from a re-read of My
+Listings; the first click (on the row) only opens the confirmation, it does not remove
+anything by itself.
+
+```js
+// 1. open the confirm dialog
+[...match.row.querySelectorAll('button')]
+  .find(b => (b.getAttribute('aria-label')||'') === 'Remove listing').click();
+// 2. confirm
+[...document.querySelectorAll('[role="dialog"] button, [role="alertdialog"] button')]
+  .find(b => b.textContent.trim() === 'Remove').click();
+// 3. re-read My Listings to confirm the row count dropped before trusting it's gone
+```
+
+**Creating a duplicate while the original is live hangs.** Verified live on
+2026-10-22: calling `createOne` with a spec identical to a still-published listing
+(same item, same price) reproducibly timed out at "Timed out waiting for dialog to
+close after submit" — twice, on two different items (Anvil Blueprint, Extended Barrel
+III Blueprint) — with **no new listing created** either time (row count unchanged
+after each attempt). The site evidently blocks or silently no-ops a duplicate submit
+in a way this runtime doesn't detect as a submit failure. Do not use
+`--allow-duplicate` + remove-the-original-after for a recreate; always remove the
+live original first (see above), confirm it's gone, and only then create the
+replacement. This applies even though `addDrafts(..., { allowDuplicate: true })` at
+the tracker level is still correct and necessary — the duplicate collision is a
+tracker-level, not DOM-level, problem, and the DOM-level order must still be
+delist-then-create.
+
 ## Editing a live listing
 My Listings row -> `Edit` -> the form directly, submitting with `Save changes`.
 Find the row by walking up from its `Edit` button and stopping at the first ancestor
