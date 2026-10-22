@@ -292,15 +292,20 @@
         "quantity": 1
       },
       "price": {
-        "kind": "seeds",
-        "amount": 400
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
       },
       "perUnit": true,
       "note": "bp for 400 seeds",
       "status": "published",
       "remoteId": "verified:Selling 1x Extended Barrel II Blueprint Listed today 05:48 P",
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T13:48:50.115Z"
+      "updatedAt": "2026-10-22T14:01:00.670Z"
     },
     {
       "id": "4147df3c-4093-406e-a1be-46c6491c9c8a",
@@ -310,15 +315,20 @@
         "quantity": 1
       },
       "price": {
-        "kind": "seeds",
-        "amount": 400
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
       },
       "perUnit": true,
       "note": "bp for 400 seeds",
       "status": "published",
       "remoteId": "verified:Selling 1x Extended Barrel III Blueprint Listed today 05:48",
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T13:48:50.125Z"
+      "updatedAt": "2026-10-22T14:01:00.759Z"
     },
     {
       "id": "967e6ef1-252f-41bf-9d00-adaac626120d",
@@ -328,15 +338,20 @@
         "quantity": 1
       },
       "price": {
-        "kind": "seeds",
-        "amount": 400
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
       },
       "perUnit": true,
       "note": "bp for 400 seeds",
       "status": "published",
       "remoteId": "verified:Selling 1x Extended Light Mag III Blueprint Listed today 05:",
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T13:48:50.134Z"
+      "updatedAt": "2026-10-22T14:01:00.849Z"
     },
     {
       "id": "b307a82a-01a7-4e9f-b06c-c0a1fd892109",
@@ -382,15 +397,20 @@
         "quantity": 1
       },
       "price": {
-        "kind": "seeds",
-        "amount": 400
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 2
+          }
+        ]
       },
       "perUnit": true,
       "note": "bp for 400 seeds",
       "status": "published",
       "remoteId": "verified:Selling 1x Vertical Grip III Blueprint Listed today 05:48 PM",
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T13:48:50.159Z"
+      "updatedAt": "2026-10-22T14:01:00.934Z"
     }
   ]
 }

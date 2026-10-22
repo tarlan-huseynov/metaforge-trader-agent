@@ -58,3 +58,12 @@ npm run payload:inventory      # paste; poll; one call returns the whole stash
 ```
 Treat the result as valid for minutes only. Cache the item **names** it reveals
 (`items:add`); never cache quantities.
+
+## Paths not yet exercised against the live site
+Treat a first run through any of these as discovery: dry-run it, expect the DOM
+contract to need a line, then it is settled like the rest.
+- `Buy an item` (the whole buy side)
+- `Offers` as a payment mode
+- more than one wanted item in a single listing
+- editing in the other direction (items -> Seeds)
+- cancelling, deleting or bumping a listing (not implemented at all)

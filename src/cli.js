@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { load, save, find, addDrafts, transition, byStatus, summarize, StoreError } from './lib/store.js';
+import { load, save, find, addDrafts, transition, byStatus, summarize, applyReprice, StoreError } from './lib/store.js';
 import { parseTrade, makeSpec, describe, formTotals, fingerprint, SpecError } from './lib/spec.js';
 import { resolve, cacheItem, filterItems, buildIndex, loadItems } from './lib/items.js';
-import { createJob, inventoryJob, jobPayload, installPayload, instructions, pollPayload } from './lib/driver.js';
+import { createJob, editJob, inventoryJob, jobPayload, installPayload, instructions, pollPayload } from './lib/driver.js';
 import { audit } from './lib/audit.js';
 
 // npm passes the `--` separator straight through; drop it so positional trade
@@ -167,6 +167,40 @@ const commands = {
     out(jobPayload(job));
   },
 
+  /** Reprice live listings. Needs the operator to name them with --ids. */
+  'payload:edit'() {
+    const db = load();
+    const want = flag('want') ?? die('Need --want (the new price, e.g. "2 kinetics" or "400 seeds")');
+    const index = buildIndex();
+    const selected = (flag('ids') ?? flag('id') ?? die('Need --ids (live edits are never selected by status)')).split(',');
+    const rows = selected.map((id) => find(db, id));
+    const notLive = rows.filter((row) => row.status !== 'published');
+    if (notLive.length) die(`Not live, so nothing to edit: ${notLive.map((r) => `${r.id.slice(0, 8)}:${r.status}`).join(', ')}`);
+    const entries = rows.map((row) => {
+      const spec = parseTrade(`${row.item.quantity} ${row.item.name} for ${want}`, { index });
+      return { row, price: spec.price, perUnit: spec.perUnit, ...(flag('note') === undefined ? {} : { note: flag('note') }) };
+    });
+    const job = editJob(entries, { commit: has('commit') });
+    if (!has('quiet')) {
+      console.error(`EDIT ${rows.length} live listing(s)${has('commit') ? ' — COMMIT' : ' — dry run'}`);
+      for (const { row, price, perUnit } of entries) {
+        console.error(`  ${row.id.slice(0, 8)}  ${row.item.name}: ${describe(row)}  =>  ${describe({ ...row, price, perUnit })}`);
+      }
+      console.error('');
+    }
+    out(jobPayload(job));
+  },
+
+  /** Write a verified reprice back into the registry. */
+  reprice() {
+    const index = buildIndex();
+    const db = load();
+    const row = find(db, flag('id') ?? die('Need --id'));
+    const want = flag('want') ?? die('Need --want');
+    const spec = parseTrade(`${row.item.quantity} ${row.item.name} for ${want}`, { index });
+    out(`repriced ${describe(applyReprice(row.id, spec.price, spec.perUnit))}`);
+  },
+
   'payload:inventory'() { out(jobPayload(inventoryJob())); },
   'payload:poll'() { out(pollPayload()); },
 
@@ -178,6 +212,11 @@ const commands = {
     for (const result of state.results ?? []) {
       if (!result.id) continue;
       if (result.dryRun) { out(`dry-run ok ${result.id.slice(0, 8)}`); continue; }
+      if (result.edit) {
+        if (result.ok) out(`edit verified ${result.id.slice(0, 8)}  ${result.evidence?.[0] ?? ''}`);
+        else out(`edit FAILED ${result.id.slice(0, 8)}  ${JSON.stringify(result.problems ?? 'no confirmation in page')}`);
+        continue;
+      }
       if (result.ok && result.evidence?.length) {
         const remote = `verified:${result.evidence[0].slice(0, 60)}`;
         transition([result.id], 'submitted', { remoteId: remote });
@@ -214,6 +253,7 @@ const commands = {
   items      items:find --query q | items:add --name "Exact Name" [--category c] | items:stats
   browser    payload:install | payload:create [--id|--ids|--status] [--commit] | payload:inventory
              payload:poll | apply-result --json '<job json>'
+  edits      payload:edit --ids a,b --want W [--commit] | reprice --id ID --want W
   local      discard --id ID   (draft/needs_review only; never touches the site)
 
 Trade phrases are parsed deterministically: "<qty> <item> for <qty> <item|seeds> [each]".

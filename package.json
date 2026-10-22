@@ -23,6 +23,8 @@
     "items:stats": "node src/cli.js items:stats",
     "payload:install": "node src/cli.js payload:install",
     "payload:create": "node src/cli.js payload:create",
+    "payload:edit": "node src/cli.js payload:edit",
+    "reprice": "node src/cli.js reprice",
     "payload:inventory": "node src/cli.js payload:inventory",
     "payload:poll": "node src/cli.js payload:poll",
     "apply-result": "node src/cli.js apply-result",

@@ -7,8 +7,15 @@ Re-verify with `npm run payload:install` + a dry run whenever a step starts timi
 - Svelte + bits-ui. Dialog ids (`#bits-cNN`) change on every open — never select by id.
 - The dialog is `position: fixed`, so `offsetParent` is **null** while it is visible.
   Visibility must be tested with `getClientRects().length > 0`.
-- Quantity fields are plain `<input type="text">`. Writing them with the native
-  value setter plus `input`/`change` events sticks across blur. Verified: `12` -> `2`.
+- Quantity fields are plain `<input type="text">`, but the native value setter only
+  changes what is **displayed**. Verified live on 2026-10-22: a wanted-item quantity
+  written to `2` that way, with the input reading `2` at save time, **saved as `1`**.
+  The `Increase/Decrease <Item> quantity` buttons are the only thing that moves the
+  component's real state, so wanted quantities are stepped **one click at a time with
+  a read-back after every click** (`stepQuantity`) — never chained blind, which is
+  what produced `12` instead of `2`.
+- The seed price (`#listing-price`) does persist from the native setter. Verified:
+  seven listings saved at exactly `400`.
 - `element.click()` works on every button in the dialog. The dialog closes
   asynchronously, so a close must be confirmed on a later tick, not the same one.
 
@@ -35,10 +42,20 @@ The edit dialog (My Listings -> Edit) skips straight to the form and submits wit
 | wanted item quantity | `input[aria-label="<Item Name> quantity"]` |
 | remove a wanted item | `button[aria-label="Remove <Item Name>"]` |
 | note | `#listing-note`, **only after** clicking the `+ Add a note` button |
+| step a wanted quantity | `button[aria-label="Increase\|Decrease <Item Name> quantity"]` |
+| step the listing quantity | `button[aria-label="Increase\|Decrease quantity"]` (Decrease is disabled at 1) |
 | submit | `Create listing` (create) / `Save changes` (edit) |
 
 Fields appear progressively: screen 3 starts with only the item search; quantity and
 the wanted-items list render after an item is chosen.
+
+## Editing a live listing
+My Listings row -> `Edit` -> the form directly, submitting with `Save changes`.
+Find the row by walking up from its `Edit` button and stopping at the first ancestor
+holding exactly one `Edit` button — an outer container holds every listing, so an
+unbounded walk matches the wrong row. Compare names with punctuation squashed: rows
+print `1x Name` with a multiplication sign, and `.replace(/\u00d7/g,'x')` was observed
+not to fire through the bridge.
 
 ## Inventory page
 `https://metaforge.app/profile/<handle>?game=arc-raiders&tab=inventory`, live-synced.
@@ -60,5 +77,10 @@ never cache quantities, re-read at the moment of need.
 | 1 barter listing (fill, verify, cancel) | 3.3 s | 3 |
 | 1 seeds listing + note | 2.1 s | 3 |
 | 3 barter listings in one job | 9.0 s (3.0 s each) | 4 (1 job + 2 polls) |
+| 7 listings created for real | 25.2 s (3.6 s each) | 4 |
+| 4 live listings repriced | ~30 s | 4 |
+
+Stepping verified live: listing quantity 1 -> 2 -> 3, one click per increment with a
+read-back between clicks. Both quantity kinds go through `stepQuantity`.
 
 Every run reported `ok: true` with quantity, wanted items and note matching the spec.

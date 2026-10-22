@@ -37,6 +37,27 @@ export const createJob = (rows, { commit = false, pauseMs = 400, stopOnError = t
   specs: rows.map(asJobSpec),
 });
 
+/**
+ * Repricing live listings. `price` is the new price; the row's own item and
+ * quantity are kept, and the note is left untouched unless one is given.
+ */
+export const editJob = (entries, { commit = false, pauseMs = 500 } = {}) => ({
+  kind: 'edit',
+  commit,
+  pauseMs,
+  stopOnError: true,
+  specs: entries.map(({ row, price, perUnit = row.perUnit, note }) => {
+    const next = { ...row, price, perUnit };
+    return {
+      id: row.id,
+      side: row.side,
+      item: { name: row.item.name, quantity: row.item.quantity },
+      form: formTotals(next),
+      ...(note === undefined ? {} : { note }),
+    };
+  }),
+});
+
 export const inventoryJob = () => ({ kind: 'inventory' });
 
 /** Condition + action for one browser_wait_and_act call that collects the result. */

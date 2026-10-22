@@ -124,6 +124,20 @@ export const transition = (ids, action, { remoteId } = {}) => {
   return rows;
 };
 
+/** Record a verified reprice of a live listing. Only touches rows already published. */
+export const applyReprice = (id, price, perUnit) => {
+  const db = load();
+  const row = find(db, id);
+  if (row.status !== 'published') throw new StoreError(`Only a published listing can be repriced (${row.id.slice(0, 8)} is ${row.status})`);
+  validatePrice(price);
+  row.price = price;
+  row.perUnit = perUnit;
+  row.updatedAt = new Date().toISOString();
+  save(db);
+  audit('reprice', { id: row.id, fingerprint: fingerprint(row) });
+  return row;
+};
+
 export const byStatus = (db, status) => (status ? db.listings.filter((row) => row.status === status) : db.listings);
 
 export const summarize = (row) => ({

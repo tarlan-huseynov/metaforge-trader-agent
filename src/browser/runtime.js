@@ -105,6 +105,40 @@
     return [...root.querySelectorAll('input')].find((i) => (i.getAttribute('aria-label') || '').toLowerCase() === wanted);
   };
 
+  /**
+   * Stepper-driven quantity. The native value setter updates these inputs on screen
+   * but NOT the component's internal count, so a listing saved that way reverts to 1
+   * (observed live: a form reading 2 saved as 1x). The buttons are the only thing
+   * that moves the real state, so they are clicked ONE at a time with a read-back
+   * after each click — never chained blind, which is what produced 12 instead of 2.
+   */
+  /** The listing's own quantity has unprefixed labels; a wanted item's are "<Item> quantity". */
+  const quantityControls = (name) => name
+    ? { field: () => quantityInputFor(name), label: `${name} quantity`, what: name }
+    : { field: () => dialog().querySelector(SEL.quantity), label: 'quantity', what: 'listing quantity' };
+
+  const stepQuantity = async (name, target) => {
+    const control = quantityControls(name);
+    const stepper = (direction) => buttonByText(new RegExp(`^${direction} ${control.label}$`, 'i'));
+    if (!stepper('Increase') && !stepper('Decrease')) {
+      // No stepper for this field (the seed price box, for instance): write it directly.
+      setQuantity(control.field(), target, control.what);
+      return target;
+    }
+    for (let guard = 0; guard < 60; guard += 1) {
+      const input = control.field();
+      if (!input) throw new Abort(`No quantity input for ${control.what}`);
+      const current = Number(input.value);
+      if (current === target) return current;
+      const button = stepper(current < target ? 'Increase' : 'Decrease');
+      if (!button) throw new Abort(`No "${current < target ? 'Increase' : 'Decrease'} ${control.label}" button`);
+      button.click();
+      await sleep(140);
+      if (Number(control.field().value) === current) throw new Abort(`${control.what} stepper did not register (stayed at ${current})`);
+    }
+    throw new Abort(`Gave up stepping ${control.what} to ${target}`);
+  };
+
   /** Write a quantity once, then prove it took. */
   const setQuantity = (input, value, label) => {
     if (!input) throw new Abort(`No quantity input for ${label}`);
@@ -164,9 +198,12 @@
       const extra = form.wanted.filter((w) => !spec.form.items.some((i) => i.name.toLowerCase() === w.name.toLowerCase()));
       if (extra.length) problems.push(`unexpected wanted items: ${extra.map((e) => e.name).join(', ')}`);
     }
-    const note = spec.note || '';
-    if (note && form.note !== note) problems.push(`note "${form.note}" != "${note}"`);
-    if (!note && form.note) problems.push(`unexpected note "${form.note}"`);
+    // An undefined note means "leave whatever is there"; '' means "there must be none".
+    if (spec.note !== undefined) {
+      const note = spec.note || '';
+      if (note && form.note !== note) problems.push(`note "${form.note}" != "${note}"`);
+      if (!note && form.note) problems.push(`unexpected note "${form.note}"`);
+    }
     return problems;
   };
 
@@ -189,22 +226,30 @@
    * want in return -> the form. The edit dialog shows the form directly, so each
    * wizard button is clicked only when it is actually present.
    */
-  const fillListing = async (spec) => {
+  const fillListing = async (spec, { skipItem = false } = {}) => {
     const sideButton = spec.side === 'buy' ? /^Buy an item\b/i : /^Sell an item\b/i;
     if (buttonByText(sideButton)) await clickButton(sideButton, { what: `${spec.side} side` });
 
     const modeButton = spec.form.kind === 'seeds' ? /^Seeds\b/ : spec.form.kind === 'items' ? /^Items\b/ : /^Offers\b/;
     if (buttonByText(modeButton)) await clickButton(modeButton, { what: `payment mode ${spec.form.kind}` });
 
-    const search = await waitFor(() => dialog().querySelector(SEL.search) || searchInputs()[0], { what: 'item search field' });
-    const picked = await pickItem(search, spec.item.name);
-    const wanted = spec.item.name.toLowerCase();
-    if (picked.toLowerCase() !== wanted && !picked.toLowerCase().startsWith(`${wanted} `)) {
-      throw new Abort(`Autocomplete returned "${picked}" for "${spec.item.name}"`);
+    if (skipItem) {
+      // The edit dialog opens with the item already chosen; confirm it rather than re-pick it.
+      const shown = text(dialog()).toLowerCase();
+      if (!shown.includes(spec.item.name.toLowerCase())) {
+        throw new Abort(`Edit dialog does not show "${spec.item.name}"`);
+      }
+    } else {
+      const search = await waitFor(() => dialog().querySelector(SEL.search) || searchInputs()[0], { what: 'item search field' });
+      const picked = await pickItem(search, spec.item.name);
+      const wanted = spec.item.name.toLowerCase();
+      if (picked.toLowerCase() !== wanted && !picked.toLowerCase().startsWith(`${wanted} `)) {
+        throw new Abort(`Autocomplete returned "${picked}" for "${spec.item.name}"`);
+      }
     }
 
-    const quantity = await waitFor(() => dialog().querySelector(SEL.quantity), { what: 'quantity field' });
-    setQuantity(quantity, spec.item.quantity, 'listing quantity');
+    await waitFor(() => dialog().querySelector(SEL.quantity), { what: 'quantity field' });
+    await stepQuantity('', spec.item.quantity);
 
     if (spec.form.kind === 'seeds') {
       const price = await waitFor(() => dialog().querySelector(SEL.price), { what: 'seed price field' });
@@ -223,7 +268,7 @@
           await pickItem(input, entry.name);
           await waitFor(() => quantityInputFor(entry.name), { what: `${entry.name} quantity row` });
         }
-        setQuantity(quantityInputFor(entry.name), entry.quantity, entry.name);
+        await stepQuantity(entry.name, entry.quantity);
       }
       // An edit dialog can already carry items the spec does not ask for.
       const extra = readForm().wanted.filter((row) => !spec.form.items.some((i) => i.name.toLowerCase() === row.name.toLowerCase()));
@@ -233,7 +278,7 @@
       }
     }
 
-    await setNote(spec.note || '');
+    if (spec.note !== undefined) await setNote(spec.note || '');
     return verify(spec);
   };
 
@@ -241,6 +286,55 @@
     [...document.querySelectorAll('main [class*="listing"], main li, main tr')]
       .map((el) => text(el))
       .filter((t) => t.length > 8);
+
+  /** Punctuation-insensitive compare: rows print "1x Name" with a multiplication sign. */
+  const squash = (value) => ` ${String(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()} `;
+
+  /**
+   * The My Listings row for one item. Walking up from an Edit button stops at the
+   * first ancestor that holds exactly one Edit button, so an outer container
+   * holding every listing can never be mistaken for a row.
+   */
+  const rowFor = (name) => {
+    const needle = squash(name);
+    for (const button of buttons(document).filter((b) => /^Edit$/i.test(text(b)))) {
+      let el = button;
+      for (let depth = 0; depth < 8 && el; depth += 1, el = el.parentElement) {
+        if ([...el.querySelectorAll('button')].filter((b) => /^Edit$/i.test(text(b))).length > 1) break;
+        if (squash(text(el)).includes(needle)) return { button, row: el };
+      }
+    }
+    return null;
+  };
+
+  /** Repricing a live listing. Only ever runs for rows the operator named. */
+  const editOne = async (spec, commit) => {
+    await closeDialog();
+    const match = rowFor(spec.item.name);
+    if (!match) throw new Abort(`No live listing row found for "${spec.item.name}"`);
+    const was = text(match.row).slice(0, 120);
+    match.button.click();
+    await waitFor(() => dialog(), { what: `edit dialog for ${spec.item.name}` });
+    const problems = await fillListing(spec, { skipItem: true });
+    const form = readForm();
+    if (problems.length) {
+      await closeDialog();
+      return { id: spec.id, edit: true, ok: false, stage: 'verify', problems, form, was };
+    }
+    if (!commit) {
+      await closeDialog();
+      return { id: spec.id, edit: true, ok: true, dryRun: true, form, was };
+    }
+    await clickButton(/^Save changes$/i, { what: 'save changes' });
+    await waitFor(() => !dialog(), { what: 'dialog to close after save', timeout: 12000 });
+    await sleep(800);
+    const after = rowFor(spec.item.name);
+    const now = after ? text(after.row).slice(0, 160) : null;
+    const expected = spec.form.kind === 'items'
+      ? spec.form.items.every((i) => squash(now || '').includes(squash(`${i.quantity} ${i.name}`)))
+      : squash(now || '').includes(squash(String(spec.form.amount)));
+    return { id: spec.id, edit: true, ok: !!now && expected, dryRun: false, form, was, evidence: now ? [now] : [] };
+  };
 
   const createOne = async (spec, commit) => {
     await closeDialog();
@@ -297,12 +391,12 @@
     window.__MF_JOB = state;
     (async () => {
       try {
-        if (job.kind === 'create' && !location.pathname.includes(MY_LISTINGS)) {
+        if ((job.kind === 'create' || job.kind === 'edit') && !location.pathname.includes(MY_LISTINGS)) {
           throw new Abort(`Wrong page: ${location.pathname} (expected ${MY_LISTINGS})`);
         }
-        if (job.kind === 'create') {
+        if (job.kind === 'create' || job.kind === 'edit') {
           for (const spec of job.specs) {
-            const result = await createOne(spec, job.commit);
+            const result = job.kind === 'edit' ? await editOne(spec, job.commit) : await createOne(spec, job.commit);
             state.results.push(result);
             if (!result.ok && job.stopOnError !== false) break;
             await sleep(job.pauseMs ?? 400);
@@ -324,8 +418,8 @@
   // Primitives are exported so a later fix can be injected as a small patch
   // instead of re-sending this whole file through the conversation.
   window.MF = {
-    run, readForm, readInventory, verify, closeDialog, setNote,
-    helpers: { sleep, text, visible, nativeSet, waitFor, dialog, buttons, buttonByText, clickButton, searchInputs, pickItem, quantityInputFor, setQuantity, rowsSnapshot, Abort },
+    run, readForm, readInventory, verify, closeDialog, setNote, rowFor,
+    helpers: { sleep, text, visible, nativeSet, waitFor, dialog, buttons, buttonByText, clickButton, searchInputs, pickItem, quantityInputFor, setQuantity, stepQuantity, rowsSnapshot, squash, fillListing, editOne, createOne, Abort },
   };
   return JSON.stringify({ installed: true, href: location.href });
 })()
