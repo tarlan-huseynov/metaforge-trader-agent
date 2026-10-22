@@ -167,6 +167,106 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Amplified Burletta (Full-Auto, Sprint Shooting)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Canto",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Canto (Carbine Conversion)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Canto (Incendiary Rounds, Carbine Conversion)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Canto (Sprint Shooting)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Equalizer (Bigger Mag)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Equalizer (Ramping Damage, Bigger Mag)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Fragments",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Hairpin (Semi-Auto, Sprint Shooting)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Hullcracker",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Hullcracker (Mag Reload)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Il Toro",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Il Toro (More Reload)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Jupiter",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Kettle",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Kettle (Full-Auto)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Osprey",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Rattler (More Reload, Drum Mag, Incendiary Rounds)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Rattler (More Reload)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Renegade",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Anvil Blueprint",
       "category": "",
       "seenAt": "2026-10-22"
@@ -174,6 +274,26 @@
     {
       "name": "Anvil IV",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "ARC Circuitry",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "ARC Conductive Coupler",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "ARC Motion Core",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "ARC Plated Coupler",
+      "category": "material",
       "seenAt": "2026-10-22"
     },
     {
@@ -192,13 +312,73 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Battery",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Bettina Blueprint",
       "category": "",
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Blaze Grenade",
+      "category": "throwable",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Bobcat IV",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Buried City Hospital Key",
+      "category": "key",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Canto IV",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Complex Gun Parts",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Deadline",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Defibrillator",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Dolabra",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Emperor Gateway Conduit",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Energy Clip",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Exodus Modules",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Explosive Compound",
+      "category": "material",
       "seenAt": "2026-10-22"
     },
     {
@@ -217,8 +397,28 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Fluted Rotor Core",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Frigate Inductor",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Heavy Ammo",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Heavy Fuze Grenade",
+      "category": "throwable",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Heavy Gun Parts",
+      "category": "material",
       "seenAt": "2026-10-22"
     },
     {
@@ -227,8 +427,18 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Hullcracker IV",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Kinetic Converter",
       "category": "resource",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Launcher Ammo",
+      "category": "material",
       "seenAt": "2026-10-22"
     },
     {
@@ -247,8 +457,78 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Magnetic Accelerator",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Medium Gun Parts",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Medium Shield",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Osprey IV",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Pendola Pass Railyard Key",
+      "category": "key",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Photoelectric Cloak",
+      "category": "gear",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Plastic Parts",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Pneumatic Actuator",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Pressure Regulator",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Processor",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Propellant Valve Assembly",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Queen Reactor",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Raider Hatch Key",
+      "category": "key",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Renegade IV",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Rubber Parts",
+      "category": "material",
       "seenAt": "2026-10-22"
     },
     {
@@ -257,8 +537,18 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Sensors",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Shield Recharger",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Smoke Grenade",
+      "category": "throwable",
       "seenAt": "2026-10-22"
     },
     {
@@ -282,8 +572,18 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Stella Montis Security Checkpoint Key",
+      "category": "key",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Stencil Parts",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Sterilized Bandage",
+      "category": "gear",
       "seenAt": "2026-10-22"
     },
     {
@@ -297,13 +597,43 @@
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Tactical Mk. 3 (Healing) Blueprint",
+      "category": "blueprint",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Tempest IV",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Tether Launcher",
+      "category": "gear",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Torrente Blueprint",
       "category": "blueprint",
       "seenAt": "2026-10-22"
     },
     {
+      "name": "Trigger 'Nade",
+      "category": "throwable",
+      "seenAt": "2026-10-22"
+    },
+    {
       "name": "Vertical Grip III Blueprint",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Vita Shot",
+      "category": "gear",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Vita Spray",
+      "category": "gear",
       "seenAt": "2026-10-22"
     },
     {
@@ -314,6 +644,11 @@
     {
       "name": "Wolfpack",
       "category": "",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Yank Grenade",
+      "category": "throwable",
       "seenAt": "2026-10-22"
     }
   ]

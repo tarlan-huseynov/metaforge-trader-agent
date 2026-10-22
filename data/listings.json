@@ -604,14 +604,14 @@
       },
       "price": {
         "kind": "seeds",
-        "amount": 300
+        "amount": 400
       },
       "perUnit": true,
       "note": "",
       "status": "published",
       "remoteId": "verified:Selling 1x Smoke Grenade Blueprint Listed today - 12:16 AM 3",
       "createdAt": "2026-10-22T20:10:04.203Z",
-      "updatedAt": "2026-10-22T20:17:03.241Z"
+      "updatedAt": "2026-10-22T21:53:15.510Z"
     },
     {
       "id": "1547a1c5-4637-4f5c-8a18-9b2e3a35a036",
@@ -622,14 +622,14 @@
       },
       "price": {
         "kind": "seeds",
-        "amount": 300
+        "amount": 400
       },
       "perUnit": true,
       "note": "",
       "status": "published",
       "remoteId": "verified:Selling 1x Bettina Blueprint Listed today - 12:16 AM 300 See",
       "createdAt": "2026-10-22T20:10:04.313Z",
-      "updatedAt": "2026-10-22T20:17:03.252Z"
+      "updatedAt": "2026-10-22T21:53:15.398Z"
     },
     {
       "id": "7e5d21d9-0d1a-4945-a75f-3aad7fba237f",
@@ -666,7 +666,7 @@
         "items": [
           {
             "name": "Kinetic Converter",
-            "quantity": 2
+            "quantity": 3
           }
         ]
       },
@@ -675,7 +675,7 @@
       "status": "published",
       "remoteId": "verified:Selling 1x Vertical Grip III Blueprint Listed today - 12:16",
       "createdAt": "2026-10-22T20:10:04.506Z",
-      "updatedAt": "2026-10-22T20:17:03.271Z"
+      "updatedAt": "2026-10-22T21:52:26.216Z"
     },
     {
       "id": "5cb5cd32-d8aa-43bc-8caa-f0f0c30e09e9",
@@ -689,7 +689,7 @@
         "items": [
           {
             "name": "Kinetic Converter",
-            "quantity": 2
+            "quantity": 3
           }
         ]
       },
@@ -698,7 +698,7 @@
       "status": "published",
       "remoteId": "verified:Selling 1x Anvil Blueprint Listed today - 12:16 AM 2x Kineti",
       "createdAt": "2026-10-22T20:10:04.601Z",
-      "updatedAt": "2026-10-22T20:17:03.280Z"
+      "updatedAt": "2026-10-22T21:52:26.077Z"
     },
     {
       "id": "05035a0a-a9dd-4690-a98e-f61ec1b386e0",
@@ -709,14 +709,14 @@
       },
       "price": {
         "kind": "seeds",
-        "amount": 300
+        "amount": 400
       },
       "perUnit": true,
       "note": "",
       "status": "published",
       "remoteId": "verified:Selling 1x Torrente Blueprint Listed today - 12:16 AM 300 Se",
       "createdAt": "2026-10-22T20:10:04.697Z",
-      "updatedAt": "2026-10-22T20:17:03.290Z"
+      "updatedAt": "2026-10-22T21:53:15.281Z"
     },
     {
       "id": "61cab515-94f1-4e38-a850-174df2c1d698",
@@ -740,6 +740,47 @@
       "remoteId": "verified:Selling 1x Looting Mk. 3 (Safekeeper) Blueprint Listed today",
       "createdAt": "2026-10-22T20:10:04.798Z",
       "updatedAt": "2026-10-22T20:17:03.300Z"
+    },
+    {
+      "id": "5d5c5896-9684-4c05-aa67-94a491549f1f",
+      "side": "sell",
+      "item": {
+        "name": "Tactical Mk. 3 (Healing) Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 400
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Tactical Mk. 3 (Healing) Blueprint Listed today -",
+      "createdAt": "2026-10-22T21:53:15.604Z",
+      "updatedAt": "2026-10-22T21:54:03.566Z"
+    },
+    {
+      "id": "1fbffc8d-c1f3-40ed-a232-ef9d20c2a9e0",
+      "side": "sell",
+      "item": {
+        "name": "Frigate Inductor",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 4
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Frigate Inductor Listed today - 01:53 AM 4x Kinet",
+      "createdAt": "2026-10-22T21:53:15.707Z",
+      "updatedAt": "2026-10-22T21:54:03.579Z"
     }
   ]
 }
