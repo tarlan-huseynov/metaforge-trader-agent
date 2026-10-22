@@ -1,35 +1,54 @@
-# MetaForge ARC Raiders Trading Agent
+# MetaForge ARC Raiders trading agent
 
-A local Node.js listing registry and dedicated Claude Code operating instructions for Firefox + ClaudeCodeBrowser MCP. **This starter does not connect to MetaForge on its own.** Claude Code performs browser actions through an independently installed, connected MCP integration.
+A local listing registry plus a page-side runtime that Claude Code drives through the
+operator's own Firefox (ClaudeCodeBrowser MCP). There is no MetaForge API integration:
+every listing is created by filling the site's real form and reading it back.
 
 ## Requirements
-- Node.js 20+
-- Claude Code installed and authenticated
-- Firefox with ClaudeCodeBrowser extension and its companion MCP server running, connected and registered with Claude Code (follow the extension project's current setup instructions)
-- Your own authorized MetaForge account, logged in manually
+- Node.js 20+ (no dependencies)
+- Firefox with the ClaudeCodeBrowser extension and its MCP server connected
+- Your own MetaForge account, logged in by you, on the My Listings page
 
-## Setup
+## How it works
+```
+  trade phrase            structured spec              one-line payload
+"anvil bp for 2 kinetics" ───▶ {item, quantity, ───▶ window.MF.run({...}) ───▶ MetaForge form
+                               price, perUnit}                                 │
+                                                        window.__MF_JOB ◀──────┘
+                                                        (read back + verified)
+```
+- Item names resolve against `data/items.json`, a cache of names seen verbatim in
+  MetaForge's own autocomplete. Ambiguous or unknown names fail loudly.
+- Per-unit prices are multiplied by the listing quantity exactly once, in code.
+- Quantities are written with the native value setter and asserted on read-back;
+  the UI's `+`/`-` buttons are never clicked (they double-registered, turning 2 into 12).
+- A dry run fills and verifies the whole form, then cancels. Only `--commit` submits,
+  and only for listings already in status `approved`.
+- A listing is marked published only when the job result carried page evidence.
+
+## Commands
 ```bash
+npm run help
+npm run plan -- "snap hook bp for 3 kinetics"      # parse only
+npm run add  -- "anvil bp for 2 kinetics" --note "1 bp for 2 kinetics"
 npm run list
-claude
+npm run approve -- --status draft
+npm run payload:install                            # paste into browser_execute_script
+npm run payload:create                             # dry run (add --commit to submit)
+npm run apply-result -- --json '<window.__MF_JOB>'
+npm run items:find -- --query "snap hook"
+npm run items:add -- --name "Exact Name" --category blueprint
+npm test
+npm run bench
 ```
+`MF_DATA_DIR` points the registry at another directory (the tests use it).
 
-In Claude Code, say: `Read CLAUDE.md and help me verify the Firefox MCP connection. Inspect MetaForge read-only and report the actual listing fields. Do not publish anything.`
+## Docs
+- `docs/playbook.md` — the four-step run loop and the rules that do not bend
+- `docs/dom-contract.md` — verified selectors, the wizard's screens, bridge limits
+- `CLAUDE.md` — operating instructions for Claude Code
 
-## Example queue
-```bash
-npm run add -- --item "Anvil" --quantity 5 --offer "5 Anvils" --want "20000 seeds each"
-npm run list
-```
-
-## Item cache
-`data/items.json` caches exact item names confirmed via MetaForge's own search, so repeat items skip a live lookup.
-```bash
-npm run cache:find -- --query hook
-npm run cache:add -- --name "Exact Item Name" --category blueprint
-```
-
-Claude should inspect the site and request approval before creating listings. The example trade is illustrative, not a recommendation or validated market price.
-
-## Important
-Keep `data/` private. This starter assumes one local operator and does not implement file locking, browser orchestration, automatic pricing, site API requests, or automatic publishing. Confirm MetaForge's rules permit the intended automation.
+## Scope and safety
+One local operator. No file locking, no pricing engine, no remote modification or
+deletion, no automatic publishing. Keep `data/` private. Confirm MetaForge's rules
+permit the automation you intend; stop and hand back any CAPTCHA or security challenge.
