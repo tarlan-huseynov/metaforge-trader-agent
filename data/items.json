@@ -1,12 +1,185 @@
 {
   "_meta": {
-    "purpose": "Local cache of ARC Raiders item names confirmed via MetaForge's live item search/autocomplete. Grows incrementally — only add an entry after it has been seen verbatim in the site's own autocomplete results. Never hand-type an item here from memory/guessing.",
+    "purpose": "Local cache of ARC Raiders item names confirmed via MetaForge's live item search/autocomplete. Grows incrementally \u2014 only add an entry after it has been seen verbatim in the site's own autocomplete results. Never hand-type an item here from memory/guessing.",
     "fields": "name = exact string accepted by MetaForge's item search. category = optional freeform hint (blueprint/resource/gear/etc). seenAt = ISO date first confirmed.",
-    "updatedAt": "2026-10-22"
+    "updatedAt": "2026-10-22",
+    "source": "MetaForge ARC Raiders item database (https://metaforge.app/arc-raiders/database/items) \u2014 page 1 of 28 pages (~1400 items total). Combinatorial weapon-mod variants (names with comma-separated mod lists in parentheses) intentionally excluded to keep the cache useful; base weapon + single-mod variants kept."
   },
   "items": [
-    { "name": "Snap Hook", "category": "gear", "seenAt": "2026-10-22" },
-    { "name": "Snap Hook Blueprint", "category": "blueprint", "seenAt": "2026-10-22" },
-    { "name": "Kinetic Converter", "category": "resource", "seenAt": "2026-10-22" }
+    {
+      "name": "Snap Hook",
+      "category": "gear",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Snap Hook Blueprint",
+      "category": "blueprint",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Kinetic Converter",
+      "category": "resource",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Abyss (Outfit)",
+      "category": "outfit",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Acoustic Guitar",
+      "category": "use",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Action Economy",
+      "category": "research",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Adrenaline Shot",
+      "category": "use",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Advanced ARC Powercell",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Advanced Camera",
+      "category": "use",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Advanced Camera Blueprint",
+      "category": "blueprint",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Advanced Electrical Components",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Advanced Mechanical Components",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Aeronaut (Outfit)",
+      "category": "outfit",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Agave",
+      "category": "nature",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Agave Juice",
+      "category": "use",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Air Freshener",
+      "category": "trinket",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Alarm Clock",
+      "category": "recyclable",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Alien Duck",
+      "category": "trinket",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Alpine Wardrobe",
+      "category": "furniture",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Alpine Wardrobe Design",
+      "category": "design",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Alpino (Outfit)",
+      "category": "outfit",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplification Module MK. I",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplification Module MK. II",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplification Module MK. III",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplification Module MK. IV",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplification Module MK. V",
+      "category": "material",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Anvil",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Anvil (Anvil Splitter)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Anvil (X-Rounds)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Aphelion",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Aphelion (Bigger Mag)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Aphelion (Charged Burst)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Aphelion (Incendiary Rounds)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Bettina",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Amplified Bettina (Bigger Mag)",
+      "category": "weapon",
+      "seenAt": "2026-10-22"
+    }
   ]
 }
