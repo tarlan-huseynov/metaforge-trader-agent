@@ -58,14 +58,16 @@ whole active set to resurface it. When asked to "recreate" or "refresh" listings
 
 1. Open My Listings and read the current Active set — item, want-side, note, age. No
    question needed to start this; it's read-only.
-2. Prefer **Bump** over cancel+recreate whenever bumps are available (resets ~24h,
-   premium gets more/day) — same visibility win, zero risk, no re-verification. Use
-   cancel+recreate only when bumps are exhausted, or the operator asked for adjustments
-   that Edit/Bump can't express (price, quantity, item change).
-3. Present the full current list once, in one message, with a numbered table. Do not
-   ask the operator to choose a strategy (bump vs. cancel/recreate) each time — default
-   to bump-first per rule 2, and only fall to cancel+recreate when bumps are unavailable
-   or adjustments require it.
+2. "Recreate" means cancel+recreate, full stop — do that, not Bump. Bump is a different,
+   smaller action (resurface without changing anything) and is only ever used when the
+   operator asks for a bump/refresh in those terms, or asks generically what to do about
+   stale listings. If the operator says "recreate" (as-is or with adjustments), go
+   straight to step 5's cancel+recreate sequence for every listing in scope — do not
+   substitute Bump as a "safer" default; that is overriding their instruction, not
+   following it.
+3. Present the full current list once, in one message, with a numbered table, then move
+   straight to step 4. Do not ask the operator to pick a strategy — "recreate" already is
+   the strategy.
 4. Still get approval before any cancel or live submit (CLAUDE.md rule #2/#5) — but ask
    it once, as a single batch: "recreate these N listings identically, approve?" or
    "recreate with: <adjustments>, approve?" Do not ask per-listing unless the operator's
@@ -76,6 +78,10 @@ whole active set to resurface it. When asked to "recreate" or "refresh" listings
    adjusted) spec -> normal draft -> approve -> dry run -> commit -> `apply-result` flow
    above. Never delete a listing before its replacement draft exists and is approved.
 6. Report at the end which were bumped vs. recreated, with evidence for each recreate.
+7. Skip any listing with an open negotiation or lock-in in progress (check Messages/chat
+   count, not just age) — recreate the rest without waiting on it. Flag the skipped
+   one(s) and why; don't cancel a listing someone is actively mid-deal on without the
+   operator handling that chat first.
 
 ## Inventory
 ```bash

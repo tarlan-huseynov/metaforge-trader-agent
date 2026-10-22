@@ -60,6 +60,34 @@ test('status machine blocks illegal moves', () => {
   assert.equal(read(dir).listings[0].status, 'published');
 });
 
+test('delist only moves published rows back to draft, and requires evidence', () => {
+  const dir = sandbox();
+  cli(dir, 'add', 'anvil bp for 2 kinetics');
+  const id = read(dir).listings[0].id;
+  assert.throws(() => cli(dir, 'delist', '--id', id, '--evidence', 'gone'), /Cannot delist/);
+  cli(dir, 'approve', '--id', id);
+  cli(dir, 'submitted', '--id', id, '--remote-id', 'verified:row-text');
+  assert.throws(() => cli(dir, 'delist', '--id', id), /requires --evidence/);
+  cli(dir, 'delist', '--id', id, '--evidence', 'My Listings no longer shows this row');
+  const row = read(dir).listings[0];
+  assert.equal(row.status, 'draft');
+  assert.equal(row.remoteId, null);
+});
+
+test('a delisted row can be re-added and republished as a fresh trade', () => {
+  const dir = sandbox();
+  cli(dir, 'add', 'anvil bp for 2 kinetics');
+  const id = read(dir).listings[0].id;
+  cli(dir, 'approve', '--id', id);
+  cli(dir, 'submitted', '--id', id, '--remote-id', 'verified:row-text');
+  cli(dir, 'delist', '--id', id, '--evidence', 'cancelled live');
+  cli(dir, 'approve', '--id', id);
+  cli(dir, 'submitted', '--id', id, '--remote-id', 'verified:row-text-2');
+  const row = read(dir).listings[0];
+  assert.equal(row.status, 'published');
+  assert.equal(row.remoteId, 'verified:row-text-2');
+});
+
 test('commit payloads refuse unapproved listings', () => {
   const dir = sandbox();
   cli(dir, 'add', 'anvil bp for 2 kinetics');

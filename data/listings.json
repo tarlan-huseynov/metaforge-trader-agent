@@ -2,28 +2,6 @@
   "schema": 2,
   "listings": [
     {
-      "id": "eb27c6df-1838-4fa0-aa28-5e2f63549881",
-      "side": "sell",
-      "item": {
-        "name": "Snap Hook Blueprint",
-        "quantity": 1
-      },
-      "price": {
-        "kind": "seeds",
-        "amount": 300
-      },
-      "perUnit": true,
-      "note": "bp for 300 seeds",
-      "status": "published",
-      "remoteId": "my-listings-snap-hook-blueprint-2026-10-22-1553",
-      "createdAt": "2026-10-22T11:30:48.338Z",
-      "updatedAt": "2026-10-22T13:14:57.501Z",
-      "legacy": {
-        "offer": "1 Snap Hook Blueprint",
-        "want": "300 Seeds each"
-      }
-    },
-    {
       "id": "56f7b99b-e83a-4b9f-b8d3-844f625d9365",
       "side": "sell",
       "item": {
@@ -42,9 +20,9 @@
       "perUnit": true,
       "note": "1 bp for 2 kinetics",
       "status": "published",
-      "remoteId": "verified:Selling 1x Anvil Blueprint - 2x Kinetic Converter - listed 2026-10-22 16:54",
+      "remoteId": "verified:Selling 1x Anvil Blueprint Listed today - 08:38 PM - 1 bp fo",
       "createdAt": "2026-10-22T12:53:10.976Z",
-      "updatedAt": "2026-10-22T13:27:14.615Z",
+      "updatedAt": "2026-10-22T16:39:13.495Z",
       "legacy": {
         "offer": "1 Anvil Blueprint",
         "want": "2 Kinetic Converter"
@@ -267,47 +245,6 @@
       }
     },
     {
-      "id": "43876c10-a3c1-434c-8175-68545f455305",
-      "side": "sell",
-      "item": {
-        "name": "Bettina Blueprint",
-        "quantity": 1
-      },
-      "price": {
-        "kind": "seeds",
-        "amount": 400
-      },
-      "perUnit": true,
-      "note": "bp for 400 seeds",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Bettina Blueprint Listed today 05:48 PM bp for 40",
-      "createdAt": "2026-10-22T13:34:46.341Z",
-      "updatedAt": "2026-10-22T13:48:50.103Z"
-    },
-    {
-      "id": "674bf297-c6fc-4056-868a-d09ae08b3e1a",
-      "side": "sell",
-      "item": {
-        "name": "Extended Barrel II Blueprint",
-        "quantity": 1
-      },
-      "price": {
-        "kind": "items",
-        "items": [
-          {
-            "name": "Kinetic Converter",
-            "quantity": 2
-          }
-        ]
-      },
-      "perUnit": true,
-      "note": "bp for 400 seeds",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Extended Barrel II Blueprint Listed today 05:48 P",
-      "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T14:01:00.670Z"
-    },
-    {
       "id": "4147df3c-4093-406e-a1be-46c6491c9c8a",
       "side": "sell",
       "item": {
@@ -326,9 +263,9 @@
       "perUnit": true,
       "note": "bp for 400 seeds",
       "status": "published",
-      "remoteId": "verified:Selling 1x Extended Barrel III Blueprint Listed today 05:48",
+      "remoteId": "verified:Selling 1x Extended Barrel III Blueprint Listed today - 08:3",
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T14:01:00.759Z"
+      "updatedAt": "2026-10-22T16:39:13.506Z"
     },
     {
       "id": "967e6ef1-252f-41bf-9d00-adaac626120d",
@@ -354,42 +291,6 @@
       "updatedAt": "2026-10-22T14:01:00.849Z"
     },
     {
-      "id": "b307a82a-01a7-4e9f-b06c-c0a1fd892109",
-      "side": "sell",
-      "item": {
-        "name": "Smoke Grenade Blueprint",
-        "quantity": 1
-      },
-      "price": {
-        "kind": "seeds",
-        "amount": 400
-      },
-      "perUnit": true,
-      "note": "bp for 400 seeds",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Smoke Grenade Blueprint Listed today 05:48 PM",
-      "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T13:48:50.142Z"
-    },
-    {
-      "id": "f19fe6cf-7338-434d-9a16-be8b1c41697d",
-      "side": "sell",
-      "item": {
-        "name": "Surge Coil Blueprint",
-        "quantity": 1
-      },
-      "price": {
-        "kind": "seeds",
-        "amount": 400
-      },
-      "perUnit": true,
-      "note": "bp for 400 seeds",
-      "status": "published",
-      "remoteId": "verified:Selling 1x Surge Coil Blueprint Listed today 05:48 PM",
-      "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T13:48:50.150Z"
-    },
-    {
       "id": "2cce2827-a75f-408b-964f-63fe4e5ce5b4",
       "side": "sell",
       "item": {
@@ -408,9 +309,104 @@
       "perUnit": true,
       "note": "bp for 400 seeds",
       "status": "published",
-      "remoteId": "verified:Selling 1x Vertical Grip III Blueprint Listed today 05:48 PM",
+      "remoteId": "verified:Selling 1x Vertical Grip III Blueprint Listed today - 08:38",
       "createdAt": "2026-10-22T13:34:46.342Z",
-      "updatedAt": "2026-10-22T14:01:00.934Z"
+      "updatedAt": "2026-10-22T16:39:13.517Z"
+    },
+    {
+      "id": "f830e0ff-619c-4b51-ab6b-1dd3c8c29fac",
+      "side": "sell",
+      "item": {
+        "name": "Snap Hook Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "items",
+        "items": [
+          {
+            "name": "Kinetic Converter",
+            "quantity": 3
+          }
+        ]
+      },
+      "perUnit": true,
+      "note": "recreate: live price was 3x kinetics",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Snap Hook Blueprint Listed today - 08:38 PM - rec",
+      "createdAt": "2026-10-22T16:36:45.606Z",
+      "updatedAt": "2026-10-22T16:39:13.528Z"
+    },
+    {
+      "id": "e85f3c0a-5d86-4905-adad-6fdd0a16b6c3",
+      "side": "sell",
+      "item": {
+        "name": "Bettina Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "recreate: lowered 400->300",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Bettina Blueprint Listed today - 08:38 PM - recre",
+      "createdAt": "2026-10-22T16:36:45.692Z",
+      "updatedAt": "2026-10-22T16:39:13.540Z"
+    },
+    {
+      "id": "a996e628-a4c4-4e70-b6d8-2f34f7a5fa8a",
+      "side": "sell",
+      "item": {
+        "name": "Smoke Grenade Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "recreate: lowered 400->300",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Smoke Grenade Blueprint Listed today - 08:38 PM -",
+      "createdAt": "2026-10-22T16:36:45.780Z",
+      "updatedAt": "2026-10-22T16:39:13.553Z"
+    },
+    {
+      "id": "fbb35641-f596-4881-938c-51ffd376dd04",
+      "side": "sell",
+      "item": {
+        "name": "Surge Coil Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 300
+      },
+      "perUnit": true,
+      "note": "recreate: live price was 300 (tracker had stale 400)",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Surge Coil Blueprint Listed today - 08:38 PM - re",
+      "createdAt": "2026-10-22T16:36:45.863Z",
+      "updatedAt": "2026-10-22T16:39:13.565Z"
+    },
+    {
+      "id": "39e30aad-5d4f-405a-90f8-e08ab5049c2e",
+      "side": "sell",
+      "item": {
+        "name": "Extended Barrel II Blueprint",
+        "quantity": 1
+      },
+      "price": {
+        "kind": "seeds",
+        "amount": 200
+      },
+      "perUnit": true,
+      "note": "recreate: set to 200",
+      "status": "published",
+      "remoteId": "verified:Selling 1x Extended Barrel II Blueprint Listed today - 08:38",
+      "createdAt": "2026-10-22T16:36:45.944Z",
+      "updatedAt": "2026-10-22T16:39:13.579Z"
     }
   ]
 }

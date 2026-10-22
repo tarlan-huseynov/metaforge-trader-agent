@@ -102,6 +102,10 @@ const commands = {
     const [row] = transition([flag('id') ?? die('Need --id')], 'submitted', { remoteId: flag('remote-id') });
     out(`published ${row.id.slice(0, 8)}  remoteId=${row.remoteId}`);
   },
+  /** Only after the live listing is confirmed gone (cancel click verified in My Listings). */
+  delist() {
+    transition(ids(), 'delist', { remoteId: flag('evidence') }).forEach((row) => out(`draft ${row.id.slice(0, 8)}  (was published, now delisted)`));
+  },
 
   /** Convert v1 free-text prices into structured ones so they can drive the browser. */
   migrate() {
@@ -250,6 +254,7 @@ const commands = {
   drafts     add "<phrase>..." [--note n] | add --item I --quantity N --want W
              add:bulk --want W [--category c] [--match m] [--dry-run]
   state      approve|fail|reset (--id|--ids|--status) | submitted --id ID --remote-id R | migrate
+             delist (--id|--ids|--status) --evidence "<what confirmed it's gone>"  (published -> draft)
   items      items:find --query q | items:add --name "Exact Name" [--category c] | items:stats
   browser    payload:install | payload:create [--id|--ids|--status] [--commit] | payload:inventory
              payload:poll | apply-result --json '<job json>'

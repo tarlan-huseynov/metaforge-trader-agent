@@ -12,6 +12,7 @@ const TRANSITIONS = {
   submitted: { to: 'published', from: ['approved'] },
   fail: { to: 'needs_review', from: ['approved', 'draft'] },
   reset: { to: 'draft', from: ['needs_review'] },
+  delist: { to: 'draft', from: ['published'] },
 };
 export { TRANSITIONS };
 
@@ -115,10 +116,20 @@ export const transition = (ids, action, { remoteId } = {}) => {
     if (!remoteId?.trim()) throw new StoreError('submitted requires --remote-id (a verified site identifier)');
     rows[0].remoteId = remoteId.trim();
   }
+  if (action === 'delist') {
+    if (!remoteId?.trim()) throw new StoreError('delist requires --evidence (what confirmed the live listing is gone)');
+  }
   for (const row of rows) {
+    const wasRemoteId = row.remoteId;
     row.status = rule.to;
+    if (action === 'delist') row.remoteId = null;
     row.updatedAt = new Date().toISOString();
-    audit(action, { id: row.id, status: row.status, remoteId: row.remoteId ?? null });
+    audit(action, {
+      id: row.id,
+      status: row.status,
+      remoteId: row.remoteId ?? null,
+      ...(action === 'delist' ? { delistedFrom: wasRemoteId, evidence: remoteId.trim() } : {}),
+    });
   }
   save(db);
   return rows;
