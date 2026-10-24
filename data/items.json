@@ -2,7 +2,7 @@
   "_meta": {
     "purpose": "Local cache of ARC Raiders item names confirmed via MetaForge's live item search/autocomplete. Grows incrementally — only add an entry after it has been seen verbatim in the site's own autocomplete results. Never hand-type an item here from memory/guessing.",
     "fields": "name = exact string accepted by MetaForge's item search. category = optional freeform hint (blueprint/resource/gear/etc). seenAt = ISO date first confirmed.",
-    "updatedAt": "2026-10-22",
+    "updatedAt": "2026-10-24",
     "source": "MetaForge ARC Raiders item database (https://metaforge.app/arc-raiders/database/items) — page 1 of 28 pages (~1400 items total). Combinatorial weapon-mod variants (names with comma-separated mod lists in parentheses) intentionally excluded to keep the cache useful; base weapon + single-mod variants kept."
   },
   "items": [
@@ -600,6 +600,11 @@
       "name": "Tactical Mk. 3 (Healing) Blueprint",
       "category": "blueprint",
       "seenAt": "2026-10-22"
+    },
+    {
+      "name": "Tactical Mk. 3 (Smoke) Blueprint",
+      "category": "blueprint",
+      "seenAt": "2026-10-24"
     },
     {
       "name": "Tempest IV",
